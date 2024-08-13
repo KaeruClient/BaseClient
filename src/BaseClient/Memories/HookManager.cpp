@@ -6,8 +6,8 @@ void HookManager::Initialize() {
 	}
 
 	for (std::size_t i = 0; i < hookList.size(); ++i) {
-		if (hookList[i]->Initialize()) Logger::writelog("Loaded hook | %s", hookList[i]->name);
-		else Logger::writelog("Failed to hook | %s", hookList[i]->name);
+		if (hookList[i]->Initialize()) logF("Loaded hook | %s", hookList[i]->name);
+		else logF("Failed to hook | %s", hookList[i]->name);
 	}
 	MH_EnableHook(MH_ALL_HOOKS);
 }

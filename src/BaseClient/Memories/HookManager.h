@@ -8,5 +8,8 @@ private:
 	static inline std::vector<Hook*> hookList;
 public:
 	static void Initialize();
-	static void Restore() { hookList.clear(); }
+	static void Restore() { 
+		logF("Restore hooks...");
+		hookList.clear(); 
+	}
 };

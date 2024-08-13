@@ -23,6 +23,7 @@ public:
         return mc;
     }
 
+private:
     static unsigned long GetMinecraftSize() {
         HMODULE base = GetModuleHandleA("Minecraft.Windows.exe");
         if (base == nullptr) return 0;
@@ -38,7 +39,6 @@ public:
     {
         return getBase() + offset;
     }
-
     static std::optional<uintptr_t> SigScanSafe(std::string_view signature)
     {
         const auto parsed = hat::parse_signature(signature);
@@ -51,15 +51,12 @@ public:
         if (!result.has_result()) return std::nullopt;
         return reinterpret_cast<uintptr_t>(result.get());
     }
-
+public:
     static uintptr_t SigScan(std::string_view signature) {
         auto result = SigScanSafe(signature);
-
         //if (!result.has_value()) Assert("Failed to find signature \"{:s}\"", signature);
-
         return result.value();
     }
-
     static uintptr_t** getVtable(const char* szSignature, int offset) {
         uintptr_t** signatureOffset = 0x0;
         if (signatureOffset == 0x0) {
@@ -72,6 +69,7 @@ public:
         }
         return 0u;
     }
+
 
 };
 
@@ -120,11 +118,14 @@ static __forceinline void nopBytes(unsigned char* dst, unsigned int size) {
 
 template <unsigned int IIdx, typename TRet, typename... TArgs>
 static inline auto CallVFunc(void* thisptr, TArgs... argList) -> TRet {
-    //if (thisptr == nullptr)
-    //return nullptr;
     using Fn = TRet(__thiscall*)(void*, decltype(argList)...);
     return (*static_cast<Fn**>(thisptr))[IIdx](thisptr, argList...);
 }
-
+template <typename TRet, typename... TArgs>
+static inline TRet getFastCall(uintptr_t address, TArgs... args) {
+    using func_t = TRet(__fastcall*)(decltype(args));
+    static func_t oFunc = reinterpret_cast<func_t>(address);
+    return oFunc(args);
+}
 #define VtableScan(signature, offset) MemUtils::getVtable(xorstr_(signature), offset)
 #define SigScan(signature) MemUtils::SigScan(xorstr_(signature))

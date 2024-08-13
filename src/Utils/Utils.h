@@ -6,6 +6,7 @@
 #include "MemUtils.h"
 #include "FileUtils.h"
 #include "Logger.h"
+#include "Math.h"
 #include <codecvt>
 
 static const char* const KeyNames[] = {
@@ -321,3 +322,20 @@ public:
 };
 
 #define u8str(name) reinterpret_cast<const char*>(std::u8string(name).data()), std::u8string(name).size())
+
+static inline void outputDebugLog(const char* str, ...) {
+	va_list arg;
+	va_start(arg, str);
+	int lengthNeeded = _vscprintf(str, arg) + 1;
+	if (lengthNeeded >= 300) {
+		va_end(arg);
+		return;
+	}
+	char message[300];
+	vsnprintf_s(message, sizeof(message), _TRUNCATE, str, arg);
+	std::string msg(message);
+	msg += "\n";
+	OutputDebugStringA(msg.c_str());
+	va_end(arg);
+}
+#define logF(str, ...) outputDebugLog(xorstr_(str), __VA_ARGS__)

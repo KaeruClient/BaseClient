@@ -15,10 +15,9 @@ auto GetDllMod(void) -> HMODULE {
 DWORD WINAPI EjectThread(LPVOID a) {
     while (dllmain::isRunning) Sleep(100);
     HookManager::Restore();
-    MH_DisableHook(MH_ALL_HOOKS);
-    MH_RemoveHook(MH_ALL_HOOKS);
-    MH_Uninitialize();
     Sleep(1000);
+    logF("Ejected!");
+
     FreeLibraryAndExitThread(GetDllMod(), 1);
     return 1;
 }
@@ -29,16 +28,18 @@ DWORD WINAPI InitializeClient(LPVOID lpParam) {
     makeAssetsFolder("Assets");
     makeAssetsFolder("Logs");
     MH_Initialize();
+    logF("Injected!");
     HookManager::Initialize();
+    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)EjectThread, NULL, NULL, NULL);
     while (dllmain::isRunning) {
-        if ((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::isKeyDown(VK_END))
-        {
+        if ((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::isKeyDown(VK_END)) {
             dllmain::isRunning = false;
+            logF("Ejecting...");
         }
         Sleep(100);
     }
 
-    return 0;
+    return 1;
 }
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,

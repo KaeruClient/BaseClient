@@ -4,7 +4,7 @@
 #include "../../../include/MinHook.h"
 #include "../../../include/xorstr.hpp"
 
-#include "../Signature.h"
+#include "../../../SDK/SDK.h"
 #include "../../../GameData.h"
 class Hook {
 public:
@@ -13,52 +13,33 @@ public:
     virtual bool Initialize() = 0;
 };
 
-class FuncHook {
+class HookClass {
+private:
+    void* address = nullptr;
+    void* origFunc = nullptr;
+    bool valid = false;
 public:
-    void* funcPtr;
-    void* funcReal;
-
-    FuncHook(void* func, void* hooked) {
-        funcPtr = func;
-
-        MH_STATUS ret = MH_CreateHook(func, hooked, &funcReal);
-        if (ret == MH_OK && (__int64)func > 10) {
-        }
-    };
-
-    FuncHook(uintptr_t func, void* hooked) {
-        funcPtr = reinterpret_cast<void*>(func);
-
-        MH_STATUS ret = MH_CreateHook(funcPtr, hooked, &funcReal);
-        if (ret == MH_OK && (__int64)funcPtr > 10) {
-        }
-    };
-
-    bool enableHook(bool enable = true) {
-        if (funcPtr != nullptr) {
-            if (enable) { return MH_EnableHook(funcPtr) == MH_OK; }
-            else { return MH_DisableHook(funcPtr) == MH_OK; }
-        }
-        return false;
+    template <typename T>
+    HookClass(uintptr_t address, T* hooked) {
+        this->address = (void*)address;
+        this->valid = (MH_CreateHook((void*)address, hooked, &origFunc) == MH_OK);
     }
-
-    ~FuncHook() {
-        Restore();
+    ~HookClass() {
+        MH_DisableHook(this->address);
+        MH_RemoveHook(this->address);
     }
-
-    void Restore() {
-        if (funcPtr != nullptr)
-            MH_DisableHook(funcPtr);
-    }
-
     template <typename TRet, typename... TArgs>
-    inline auto* GetFastcall() {
+    inline auto* GetOrigFunc() {
         using Fn = TRet(__fastcall*)(TArgs...);
-        return reinterpret_cast<Fn>(funcReal);
+        return reinterpret_cast<Fn>(origFunc);
     };
-}; //sorry i skidded horion ;(
+    bool isValid() {
+        return valid;
+    };
+};
 
-__forceinline static bool CreateHook(std::unique_ptr<FuncHook>& breh, void* func, void* hooked) {
-    breh = std::make_unique<FuncHook>(func, hooked);
-    return breh->enableHook(true);
+template <typename T>
+static inline bool CreateHook(std::unique_ptr<HookClass> &hook, uintptr_t address, T* funcPtr) {
+    hook = std::make_unique<HookClass>(address, funcPtr);
+    return hook->isValid();
 }

@@ -4,12 +4,12 @@
 namespace KeyboardHook {
 	class Feed : public Hook {
 	private:
-		static inline std::unique_ptr<FuncHook> funcPtr;
+		static inline std::unique_ptr<HookClass> funcPtr;
 	public:
 		Feed() : Hook(xorstr_("Keyboard::feed")) {};
 		static void handle(unsigned char key, bool isDown);
 		bool Initialize() override {
-			return CreateHook(funcPtr, (void*)Signature::keyboard_feed, handle);
+			return CreateHook(funcPtr, Signature::keyboard_feed, handle);
 		}
 	};
 }

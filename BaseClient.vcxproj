@@ -52,7 +52,8 @@
     <ClInclude Include="src\BaseClient\Memories\HookManager.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hook.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hooks\KeyboardHook.h" />
-    <ClInclude Include="src\BaseClient\Memories\Signature.h" />
+    <ClInclude Include="src\SDK\SDK.h" />
+    <ClInclude Include="src\SDK\Signatures.h" />
     <ClInclude Include="src\dllmain.h" />
     <ClInclude Include="src\GameData.h" />
     <ClInclude Include="src\include\libhat\include\libhat.hpp" />
@@ -81,8 +82,11 @@
     <ClInclude Include="src\include\minhook\hde\table64.h" />
     <ClInclude Include="src\include\minhook\trampoline.h" />
     <ClInclude Include="src\include\xorstr.hpp" />
+    <ClInclude Include="src\SDK\ClientInstance\ClientInstance.h" />
+    <ClInclude Include="src\SDK\ClientInstance\GuiData.h" />
     <ClInclude Include="src\Utils\FileUtils.h" />
     <ClInclude Include="src\Utils\Logger.h" />
+    <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Utils\MemUtils.h" />
     <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
