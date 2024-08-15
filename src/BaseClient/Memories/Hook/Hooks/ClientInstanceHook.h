@@ -3,8 +3,6 @@
 
 namespace KeyboardHook {
 	class Feed : public Hook {
-	private:
-		static inline HookClass* funcPtr;
 	public:
 		Feed() : Hook(xorstr_("Keyboard::feed")) {};
 		static void handle(unsigned char key, bool isDown);

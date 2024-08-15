@@ -1,6 +1,6 @@
-#include "HookManager.h"
+#include "HookHandler.h"
 
-void HookManager::Initialize() {
+void HookHandler::Initialize() {
 	{
 		hookList.push_back(new KeyboardHook::Feed());
 	}

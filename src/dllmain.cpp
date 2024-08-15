@@ -2,8 +2,9 @@
 #include <Windows.h>
 
 #include "include/MinHook.h"
-#include "BaseClient/Memories/HookManager.h"
+#include "BaseClient/Memories/HookHandler.h"
 #include <cassert>
+#include "BaseClient/Module/ModuleHandler.h"
 bool dllmain::isRunning = true;
 auto GetDllMod(void) -> HMODULE {
     MEMORY_BASIC_INFORMATION info;
@@ -14,7 +15,8 @@ auto GetDllMod(void) -> HMODULE {
 
 DWORD WINAPI EjectThread(LPVOID a) {
     while (dllmain::isRunning) Sleep(100);
-    HookManager::Restore();
+    HookHandler::Restore();
+    ModuleHandler::Restore();
     Sleep(1000);
     logF("Ejected!");
 
@@ -29,7 +31,8 @@ DWORD WINAPI InitializeClient(LPVOID lpParam) {
     makeAssetsFolder("Logs");
     MH_Initialize();
     logF("Injected!");
-    HookManager::Initialize();
+    ModuleHandler::Initialize();
+    HookHandler::Initialize();
     CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)EjectThread, NULL, NULL, NULL);
     while (dllmain::isRunning) {
         if ((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::isKeyDown(VK_END)) {

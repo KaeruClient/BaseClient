@@ -3,7 +3,7 @@
 #include "Hook/Hook.h"
 #include "Hook/Hooks/KeyboardHook.h"
 
-class HookManager {
+class HookHandler {
 private:
 	static inline std::vector<Hook*> hookList;
 public:
