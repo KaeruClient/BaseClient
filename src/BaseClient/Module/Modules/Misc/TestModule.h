@@ -9,4 +9,8 @@ public:
 	float _float = 6.7f;
 	Keybind _keybind = 'K';
 	vec3<float> unsupported;
+
+	void onEnableEvent()  override {
+		logF("Niqqa");
+	}
 };

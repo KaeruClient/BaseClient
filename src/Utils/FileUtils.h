@@ -2,9 +2,7 @@
 
 #include <stdlib.h>
 #include <string>
-#include "../GameData.h"
 #include <direct.h>
-
 
 static void makeFolder() {
     char* value;
@@ -24,18 +22,7 @@ static void makeAssetsFolder(std::string name) {
     free(value);
 }
 
-inline static std::string getRoamingStatePath()
-{
-	char* value;
-	size_t size;
-	_dupenv_s(&value, &size, "AppData");
 
-	std::string roamingPathCStr = value + (std::string)"\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\";
-	free(value);
-	return roamingPathCStr;
-}
+inline static std::string getRoamingStatePath();
 
-inline static std::string getClientPath()
-{
-	return getRoamingStatePath() + ClientData::getClientName() + "\\";
-}
+inline static std::string getClientPath();

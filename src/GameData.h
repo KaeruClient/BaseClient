@@ -11,9 +11,7 @@ private:
 	class GuiData* guiData = nullptr;
 	std::map<unsigned char, bool> keymap;
 public:
-	void updateGameData(class ClientInstance* clientInstance) {
-		this->clientInstace = clientInstance;
-	}
+	void updateGameData(class ClientInstance* clientInstance);
 	void updateGameData(unsigned char key, bool isDown) {
 		this->keymap[key] = isDown;
 	}

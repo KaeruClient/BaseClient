@@ -2,5 +2,7 @@
 ModuleHandler modules = ModuleHandler();
 
 void ModuleHandler::Initialize() {
-	addModule<TestModule>();
+	add<TestModule>();
+	logF("Initialized ModuleHandler!");
+	modules.initialized = true;
 }

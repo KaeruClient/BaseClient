@@ -1,13 +1,15 @@
 #pragma once
 #include "../Hook.h"
 
-namespace KeyboardHook {
-	class Feed : public Hook {
+namespace ClientInstanceHook {
+	class Update : public Hook {
+	private:
+		static inline std::unique_ptr<HookClass> funcPtr;
 	public:
-		Feed() : Hook(xorstr_("Keyboard::feed")) {};
-		static void handle(unsigned char key, bool isDown);
-		bool Initialize() override {
-			return CreateHook(funcPtr, Signature::keyboard_feed, handle);
+		Update() : Hook(xorstr_("ClientInstance::update")) {};
+		static void handle(ClientInstance* _this, bool a2);
+		bool Initialize() {
+			return CreateHook(funcPtr, Signature::ClientInstance::update, handle);
 		}
 	};
 }

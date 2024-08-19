@@ -6,13 +6,13 @@
 
 #include "../../../SDK/SDK.h"
 #include "../../../GameData.h"
+
+#include "../../Module/ModuleHandler.h"
+
 class Hook {
-protected:
-    HookClass* funcPtr = nullptr;
 public:
-    std::string_view name;
+    std::string name;
     Hook(const char* a) { name = a; };
-    ~Hook() { delete funcPtr; };
     virtual bool Initialize() = 0;
 };
 
@@ -42,7 +42,7 @@ public:
 };
 
 template <typename T>
-static inline bool CreateHook(HookClass* &hook, uintptr_t address, T* funcPtr) {
-    hook = new HookClass(address, funcPtr);
+static inline bool CreateHook(std::unique_ptr<HookClass> &hook, uintptr_t address, T* funcPtr) {
+    hook = std::make_unique<HookClass>(address, funcPtr);
     return hook->isValid();
 }

@@ -5,6 +5,7 @@
 
 #include "../../../Utils/Utils.h"
 #include "../../../SDK/SDK.h"
+#include <functional>
 
 
 enum class Category {
@@ -57,18 +58,20 @@ private:
 	Category category;
 public:
 	Module(Category cat, Keybind keybind, const char* tooltip);
+	virtual ~Module() {};
 	const Category getCategory() { return category; };
 	std::vector<Setting*>* getSettings() {
 		return &settings;
 	}
 	bool isVisible() { return visible; };
-	const char* getName() { 
-		const char* name = typeid(*this).name();
-		return name;
+	const char* getName() {
+		std::string name = typeid(*this).name();
+		name = name.substr(6, name.length());
+		return name.c_str();
 	}; //ƒNƒ‰ƒX‚Ì–¼‘O‚ð•Ô‚·
 	virtual std::string getMode() { return ""; };
 	template <typename T>
-	inline void addSetting(std::string name, T* ptr, float min = 0, float max = 0) { 
+	inline void registerSetting(std::string name, T* ptr, float min = 0, float max = 0) {
 		static_assert
 			(
 				std::is_same<T, bool>::value || 
@@ -109,13 +112,16 @@ public:
 		setting->name = name;
 		settings.push_back(setting);
 	}
-	virtual void onEnable() {}
-	virtual void onDisable() {}
+
+public:
+	virtual void onUpdateEvent(ClientInstance* ci) {}; //ClientInstance::update 
+	virtual void onEnableEvent() {}
+	virtual void onDisableEvent() {}
 	void setEnabled(bool enabled) {
 		if (this->enabled == enabled) return;
 		this->enabled = enabled;
-		if (enabled) onEnable();
-		else onDisable();
+		if (enabled) onEnableEvent();
+		else onDisableEvent();
 	}
 	void setKeybind(int keybind) { this->keybind = keybind; };
 	int getKeybind() { return keybind.keybind; }

@@ -15,6 +15,7 @@ auto GetDllMod(void) -> HMODULE {
 
 DWORD WINAPI EjectThread(LPVOID a) {
     while (dllmain::isRunning) Sleep(100);
+    DirectXHook::shutdown();
     HookHandler::Restore();
     ModuleHandler::Restore();
     Sleep(1000);

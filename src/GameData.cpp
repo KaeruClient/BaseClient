@@ -2,6 +2,8 @@
 #include "include/xorstr.hpp"
 #include <string>
 
+#include "SDK/SDK.h"
+
 GameData g_Data = GameData();
 
 static std::string version = xorstr_("1.0.0");
@@ -12,4 +14,10 @@ const char* ClientData::getClientName() {
 }
 const char* ClientData::getClientVersion() {
 	return version.c_str();
+}
+
+void GameData::updateGameData(class ClientInstance* ci) {
+	this->clientInstace = ci;
+	this->guiData = ci->getGuiData();
+	this->localPlayer = ci->getLocalPlayer();
 }
