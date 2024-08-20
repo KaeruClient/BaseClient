@@ -1,11 +1,13 @@
 ﻿#include "dllmain.h"
 #include <Windows.h>
+//#include <cassert>
 
 #include "include/MinHook.h"
+#include "include/discord/cpp/discord.h"
 #include "BaseClient/Memories/HookHandler.h"
-#include <cassert>
 #include "BaseClient/Module/ModuleHandler.h"
 bool dllmain::isRunning = true;
+std::unique_ptr<discord::Core> dllmain::core = {};
 auto GetDllMod(void) -> HMODULE {
     MEMORY_BASIC_INFORMATION info;
     size_t len = VirtualQueryEx(GetCurrentProcess(), (void*)GetDllMod, &info, sizeof(info));
@@ -34,22 +36,26 @@ DWORD WINAPI InitializeClient(LPVOID lpParam) {
     logF("Injected!");
     ModuleHandler::Initialize();
     HookHandler::Initialize();
-    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)EjectThread, NULL, NULL, NULL);
+    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)EjectThread, NULL, NULL, NULL); 
+    discord::Core* coreInstance;
+    if (discord::Core::Create(1275439673631576086, (int)discord::CreateFlags::Default, &coreInstance) == discord::Result::Ok) {
+        dllmain::core.reset(coreInstance);
+        discord::Activity activity;
+        activity.SetState("Test");
+        activity.SetDetails("Unknown");
+        dllmain::core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {});
+    }
     while (dllmain::isRunning) {
         if ((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::isKeyDown(VK_END)) {
             dllmain::isRunning = false;
             logF("Ejecting...");
         }
+        if (dllmain::core) dllmain::core->RunCallbacks();
         Sleep(100);
     }
-
     return 1;
 }
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
-{
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved) {
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:

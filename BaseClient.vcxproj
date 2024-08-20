@@ -36,6 +36,20 @@
     <ClCompile Include="src\BaseClient\Module\Modules\Module.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\GameData.cpp" />
+    <ClCompile Include="src\include\discord\cpp\achievement_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\activity_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\application_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\core.cpp" />
+    <ClCompile Include="src\include\discord\cpp\image_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\lobby_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\network_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\overlay_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\relationship_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\storage_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\store_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\types.cpp" />
+    <ClCompile Include="src\include\discord\cpp\user_manager.cpp" />
+    <ClCompile Include="src\include\discord\cpp\voice_manager.cpp" />
     <ClCompile Include="src\include\ImFX\imfx.cpp" />
     <ClCompile Include="src\include\ImGui\imgui.cpp" />
     <ClCompile Include="src\include\ImGui\imgui_demo.cpp" />
@@ -73,6 +87,23 @@
     <ClInclude Include="src\BaseClient\Module\ModuleHandler.h" />
     <ClInclude Include="src\BaseClient\Module\Modules\Misc\TestModule.h" />
     <ClInclude Include="src\BaseClient\Module\Modules\Module.h" />
+    <ClInclude Include="src\include\discord\cpp\achievement_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\activity_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\application_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\core.h" />
+    <ClInclude Include="src\include\discord\cpp\discord.h" />
+    <ClInclude Include="src\include\discord\cpp\event.h" />
+    <ClInclude Include="src\include\discord\cpp\ffi.h" />
+    <ClInclude Include="src\include\discord\cpp\image_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\lobby_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\network_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\overlay_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\relationship_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\storage_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\store_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\types.h" />
+    <ClInclude Include="src\include\discord\cpp\user_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\voice_manager.h" />
     <ClInclude Include="src\include\entt\config\config.h" />
     <ClInclude Include="src\include\entt\config\macro.h" />
     <ClInclude Include="src\include\entt\config\version.h" />
@@ -198,7 +229,17 @@
     <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\include\discord\lib\aarch64\discord_game_sdk.bundle" />
+    <None Include="src\include\discord\lib\aarch64\discord_game_sdk.dylib" />
+    <None Include="src\include\discord\lib\x86\discord_game_sdk.dll" />
+    <None Include="src\include\discord\lib\x86_64\discord_game_sdk.bundle" />
+    <None Include="src\include\discord\lib\x86_64\discord_game_sdk.dll" />
+    <None Include="src\include\discord\lib\x86_64\discord_game_sdk.dylib" />
     <None Include="src\include\libhat\include\libhat\Scanner.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="src\include\discord\lib\x86\discord_game_sdk.dll.lib" />
+    <Library Include="src\include\discord\lib\x86_64\discord_game_sdk.dll.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
