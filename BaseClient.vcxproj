@@ -36,6 +36,11 @@
     <ClCompile Include="src\BaseClient\Module\Modules\Module.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\GameData.cpp" />
+    <ClCompile Include="src\include\DiscordSDK\src\connection_win.cpp" />
+    <ClCompile Include="src\include\DiscordSDK\src\discord_register_win.cpp" />
+    <ClCompile Include="src\include\DiscordSDK\src\discord_rpc.cpp" />
+    <ClCompile Include="src\include\DiscordSDK\src\rpc_connection.cpp" />
+    <ClCompile Include="src\include\DiscordSDK\src\serialization.cpp" />
     <ClCompile Include="src\include\ImFX\imfx.cpp" />
     <ClCompile Include="src\include\ImGui\imgui.cpp" />
     <ClCompile Include="src\include\ImGui\imgui_demo.cpp" />
@@ -73,6 +78,51 @@
     <ClInclude Include="src\BaseClient\Module\ModuleHandler.h" />
     <ClInclude Include="src\BaseClient\Module\Modules\Misc\TestModule.h" />
     <ClInclude Include="src\BaseClient\Module\Modules\Module.h" />
+    <ClInclude Include="src\include\DiscordSDK\include\discord_register.h" />
+    <ClInclude Include="src\include\DiscordSDK\include\discord_rpc.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\backoff.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\connection.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\msg_queue.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\allocators.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\cursorstreamwrapper.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\document.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\encodedstream.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\encodings.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\error\en.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\error\error.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\filereadstream.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\filewritestream.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\fwd.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\biginteger.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\diyfp.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\dtoa.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\ieee754.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\itoa.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\meta.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\pow10.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\regex.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\stack.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\strfunc.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\strtod.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\internal\swap.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\istreamwrapper.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\memorybuffer.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\memorystream.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\pointer.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\prettywriter.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\rapidjson.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\reader.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\schema.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\stream.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\stringbuffer.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rapidjson\writer.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\rpc_connection.h" />
+    <ClInclude Include="src\include\DiscordSDK\src\serialization.h" />
+    <ClInclude Include="src\include\discord\include\discord_register.h" />
+    <ClInclude Include="src\include\discord\include\discord_rpc.h" />
     <ClInclude Include="src\include\entt\config\config.h" />
     <ClInclude Include="src\include\entt\config\macro.h" />
     <ClInclude Include="src\include\entt\config\version.h" />
@@ -158,6 +208,7 @@
     <ClInclude Include="src\include\ImGui\imstb_rectpack.h" />
     <ClInclude Include="src\include\ImGui\imstb_textedit.h" />
     <ClInclude Include="src\include\ImGui\imstb_truetype.h" />
+    <ClInclude Include="src\include\Json.hpp" />
     <ClInclude Include="src\include\Kiero\Kiero.h" />
     <ClInclude Include="src\SDK\SDK.h" />
     <ClInclude Include="src\SDK\Signatures.h" />
@@ -195,6 +246,7 @@
     <ClInclude Include="src\Utils\Logger.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Utils\MemUtils.h" />
+    <ClInclude Include="src\Utils\NetworkUtils.h" />
     <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -274,18 +326,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)src\$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</ExternalIncludePath>
+    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</ExternalIncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Beta|x64'">
-    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</ExternalIncludePath>
+    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)src\$(Platform)\$(Configuration)\</OutDir>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</ExternalIncludePath>
+    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)src\$(Platform)\$(Configuration)\</OutDir>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Beta|Win32'">
     <OutDir>$(SolutionDir)src\$(Platform)\$(Configuration)\</OutDir>
@@ -310,6 +365,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(ProjectDir)src\include\discord\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -330,6 +386,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(ProjectDir)src\include\discord\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Beta|Win32'">
@@ -350,6 +407,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>$(ProjectDir)src\include\discord\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -366,6 +424,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -386,6 +445,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Beta|x64'">
@@ -406,6 +466,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
