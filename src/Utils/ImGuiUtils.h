@@ -59,13 +59,13 @@ public:
 
 	static float getTextWidth(const char* textStr, float textSize, const ImFont* font = nullptr) {
 		if (font)
-			return font->CalcTextSizeA(textSize * getScale(), FLT_MAX, -1, textStr).x;
-		return ImGui::GetFont()->CalcTextSizeA(textSize * getScale(), FLT_MAX, -1, textStr).x;
+			return font->CalcTextSizeA(fontSize * textSize * getScale(), FLT_MAX, -1, textStr).x;
+		return ImGui::GetFont()->CalcTextSizeA(fontSize * textSize * getScale(), FLT_MAX, -1, textStr).x;
 	}
 
-	static float getTextHeight(float textSize, std::string text, const ImFont* font = nullptr) {
+	static float getTextHeight(float textSize, std::string text = "", const ImFont* font = nullptr) {
 		if (font)
-			return font->CalcTextSizeA(textSize * getScale(), FLT_MAX, -1, text.c_str()).y;
-		return ImGui::GetFont()->CalcTextSizeA(textSize * getScale(), FLT_MAX, -1, text.c_str()).y;
+			return font->CalcTextSizeA(fontSize * textSize * getScale(), FLT_MAX, -1, text.c_str()).y;
+		return ImGui::GetFont()->CalcTextSizeA(fontSize * textSize * getScale(), FLT_MAX, -1, text.c_str()).y;
 	}
 };

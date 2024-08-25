@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BaseClient\Features\Config\ConfigHandler.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Module\Modules\Render\ArrayList.cpp" />
     <ClCompile Include="src\BaseClient\Memories\HookHandler.cpp" />
     <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\ClientInstanceHook.cpp" />
     <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\DirectXHook.cpp" />
@@ -85,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BaseClient\Features\Config\ConfigHandler.h" />
+    <ClInclude Include="src\BaseClient\Features\Module\Modules\Render\ArrayList.h" />
     <ClInclude Include="src\BaseClient\Memories\HookHandler.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hook.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hooks\ClientInstanceHook.h" />

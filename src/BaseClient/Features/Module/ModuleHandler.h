@@ -4,7 +4,7 @@
 #include "Modules/Module.h"
 
 #include "Modules/Misc/TestModule.h"
-
+#include "Modules/Render/ArrayList.h"
 extern class ModuleHandler modules;
 class ModuleHandler {
 private:
@@ -27,6 +27,12 @@ public:
 			if (mod->getCategory() == category) categoryedList.push_back(mod);
 		return categoryedList;
 	}
+	std::vector<Module*> getEnabledList() {
+		std::vector<Module*> enabled;
+		for (auto& mod : moduleList)
+			if (mod->isEnabled()) enabled.push_back(mod);
+		return enabled;
+	}
 	static void Restore() { 
 		modules.moduleList.clear();
 		logF("Restore ModuleHandler...");
@@ -36,11 +42,29 @@ public:
 	inline T* get() {
 		if (isInitialized()) {
 			for (auto& it : moduleList) {
-				if (dynamic_cast<T*>(it))
+				if (dynamic_cast<T*>(it)) {
+					logF("Found module : %s", typeid(T).name());
 					return (T*)it;
+				}
 			}
+			logF("Falid to find : %s", typeid(T).name());
 		}
+		logF("Falid to get the module");
 		return nullptr;
+	}
+
+	void flushPresentEvent(ImDrawList* d) {
+		for (Module* mod : moduleList) {
+			mod->onPresentEvent(d);
+		}
+	};
+
+	void flushKeyFeedEvent(unsigned char key, bool isDown, bool& shouldCancel) {
+		for (Module* mod : moduleList) {
+			mod->onKeyFeedEvent(key, isDown, shouldCancel);
+			if (key == mod->getKeybind() && isDown)
+				mod->setEnabled(!mod->isEnabled());
+		}
 	}
 
 	void SaveConfig(nlohmann::json* json) {

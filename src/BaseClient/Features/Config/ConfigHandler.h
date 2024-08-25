@@ -8,8 +8,8 @@ class ConfigHandler {
 private:
 	static nlohmann::json jsonConfig;
 	static inline constexpr const char* defaultConfig = "Config";
-	static inline std::string fileName = defaultConfig;
 public:
+	static inline std::string fileName = defaultConfig;
 	static bool Load(std::string config, bool IfFalidCreateConfig);
 	static bool Save(std::string config);
 	static bool Create(std::string config);

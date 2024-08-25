@@ -7,7 +7,7 @@ bool ConfigHandler::Save(std::string config) {
     modules.SaveConfig(&jsonConfig);
     const std::string fullPath = Utils::getClientPath() + "Configs\\" + config + ".json";
     std::ofstream writing_file(fullPath.c_str(), std::ifstream::binary);
-    logF("Saving config in \"%s\"", fullPath);
+    logF("Saving config in \"%s\"", fullPath.c_str());
     writing_file << std::setw(4) << jsonConfig << std::endl;
     writing_file.flush();
     writing_file.close(); 
@@ -33,11 +33,9 @@ bool ConfigHandler::Load(std::string config, bool create) {
                 logF("Json parse error : %s", e.what());
                 return false;
             }
-            jsonConfig["Client"] = client.getName();
 
             modules.LoadConfig(&jsonConfig);
-        }
-        if (create) Save(config);
+        } else if (create) Save(config);
         
         const std::string configName = Utils::getClientPath() + "Configs\\LatestConfig.txt";
 

@@ -11,7 +11,8 @@ void DirectXHook::onRender2D() {
 	GuiData* guiData = GameData::getGuiData();
 	ImDrawList* d = ImGui::GetBackgroundDrawList();
 	ImGuiUtils::setDrawList(d);
-	ImGuiUtils::drawText(vec2(0, 0), client.getName(), Color(255,255,255), 2.f, true, 4.f);
+	modules.flushPresentEvent(d);
+	//ImGuiUtils::drawText(vec2(0, 0), client.getName(), Color(255,255,255), 2.f, true, 4.f);
 	//d->AddRectFilled(ImVec2(0.f, 0.f), ImVec2(60.f, 60.f), ImColor(255,255,255));
 }
 

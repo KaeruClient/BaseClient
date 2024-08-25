@@ -8,7 +8,6 @@
 #include "../../../../SDK/SDK.h"
 #include <functional>
 
-
 enum class Category {
 	Combat = 0,
 	Render = 1,
@@ -56,7 +55,7 @@ struct Setting {
 class Module {
 private:
 	std::vector<Setting*> settings;
-	bool visible = false;
+	bool visible = true;
 	bool enabled = false;
 	Keybind keybind = 0x0;
 	std::string tooltip = "";
@@ -122,7 +121,9 @@ public:
 	}
 
 public:
+	virtual void onKeyFeedEvent(unsigned char key, bool isDown, bool& shouldCancel) {}
 	virtual void onUpdateEvent(ClientInstance* ci) {}; //ClientInstance::update 
+	virtual void onPresentEvent(ImDrawList* d) {}
 	virtual void onEnableEvent() {}
 	virtual void onDisableEvent() {}
 	void setEnabled(bool enabled) {
@@ -134,6 +135,7 @@ public:
 	void setKeybind(int keybind) { this->keybind = keybind; };
 	int getKeybind() { return keybind.keybind; }
 	Keybind* KeybindData() { return &keybind; }
+	bool isEnabled() { return enabled; }
 	void SaveConfig(nlohmann::json* json) {
 		nlohmann::json object;
 		for (auto& setting : settings) {
@@ -163,27 +165,42 @@ public:
 	void LoadConfig(nlohmann::json* json) {
 		if (json->contains(this->getName())) {
 			nlohmann::json object = json->at(this->getName());
-			if (object.is_null())
+			if (object.is_null()) {
+				logF("Config load error reason 1");
 				return;
+			}
+			logF("Loading %s's config...", this->getName());
+
 			for (auto& setting : settings) {
 				switch (setting->type)
 				{
 				case SettingType::bool_t:
-					setting->value->_bool = JsonUtils::readJson<bool>(&object, setting->name.c_str());
+					setting->value->_bool = JsonUtils::readJson<bool>(object, setting->name.c_str());
+					logF("Loaded boolean");
+					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_bool);
 					break;
 				case SettingType::int_t:
-					setting->value->_int = JsonUtils::readJson<int>(&object, setting->name.c_str());
+					setting->value->_int = JsonUtils::readJson<int>(object, setting->name.c_str());
+					logF("Loaded intger");
+					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_int);
 					break;
 				case SettingType::float_t:
-					setting->value->_float = JsonUtils::readJson<float>(&object, setting->name.c_str());
+					setting->value->_float = JsonUtils::readJson<float>(object, setting->name.c_str());
+					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_float);
+					logF("Loaded float");
 					break;
 				case SettingType::text_t:
-					setting->value->_text = JsonUtils::readJson<std::string>(&object, setting->name.c_str());
+					setting->value->_text = JsonUtils::readJson<std::string>(object, setting->name.c_str());
+					logF("Loaded text");
+					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_text);
 					break;
 				case SettingType::keybind_t:
-					setting->value->_keybind.keybind = JsonUtils::readJson<int>(&object, setting->name.c_str());
+					setting->value->_keybind.keybind = JsonUtils::readJson<int>(object, setting->name.c_str());
+					logF("Loaded keybind");
+					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_keybind.keybind);
 					break;
 				default:
+					logF("Config load error reason 2");
 					break;
 				}
 			}

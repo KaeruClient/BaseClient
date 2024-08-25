@@ -27,7 +27,7 @@ DWORD WINAPI EjectThread(LPVOID a) {
     DirectXHook::shutdown();
     HookHandler::Restore();
     ModuleHandler::Restore();
-
+    ConfigHandler::Save(ConfigHandler::fileName);
     auto disp = winrt::Windows::ApplicationModel::Core::CoreApplication::MainView().CoreWindow().Dispatcher();
     disp.RunAsync(winrt::Windows::UI::Core::CoreDispatcherPriority::Normal, []() {winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().Title(L"");});
 
