@@ -5,14 +5,15 @@
 #include "SDK/SDK.h"
 
 GameData g_Data = GameData();
+ClientData client = ClientData();
 
 static std::string version = xorstr_("1.0.0");
 static std::string name = xorstr_("BaseClient");
 
-const char* ClientData::getClientName() {
+const char* ClientData::getName() {
 	return name.c_str();
 }
-const char* ClientData::getClientVersion() {
+const char* ClientData::getVersion() {
 	return version.c_str();
 }
 
@@ -21,3 +22,9 @@ void GameData::updateGameData(class ClientInstance* ci) {
 	this->guiData = ci->getGuiData();
 	this->localPlayer = ci->getLocalPlayer();
 }
+
+
+class ClientInstance* GameData::getClientInstance() { return g_Data.clientInstace; }
+class GameMode* GameData::getGameMode() { return g_Data.gameMode; }
+class LocalPlayer* GameData::getLocalPlayer() { return g_Data.localPlayer; }
+class GuiData* GameData::getGuiData() { return g_Data.guiData; }

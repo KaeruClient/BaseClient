@@ -10,10 +10,9 @@
 void DirectXHook::onRender2D() {
 	GuiData* guiData = GameData::getGuiData();
 	ImDrawList* d = ImGui::GetBackgroundDrawList();
-	d->AddRectFilled(ImVec2(0.f, 0.f), ImVec2(60.f, 60.f), ImColor(255,255,255));
-	ImFX::Begin(d);
-	ImFX::AddBlur(5.f, ImVec4(0.f, 0.f, guiData->widthReal, guiData->heightReal));
-	ImFX::End();
+	ImGuiUtils::setDrawList(d);
+	ImGuiUtils::drawText(vec2(0, 0), client.getName(), Color(255,255,255), 2.f, true, 4.f);
+	//d->AddRectFilled(ImVec2(0.f, 0.f), ImVec2(60.f, 60.f), ImColor(255,255,255));
 }
 
 
@@ -80,7 +79,6 @@ HRESULT DirectX12::onExecuteCommandList(ID3D12CommandQueue* queue, UINT num, ID3
 }
 
 HRESULT DirectX12::onResizeBuffers(IDXGISwapChain3* a1, UINT a2, UINT a3, UINT a4, DXGI_FORMAT a5, UINT a6) {
-	ticks = 5;
 	releaseRTV();
 	HRESULT result = oResize(a1, a2, a3, a4, a5, a6);
 	createRTV(a1);
@@ -97,7 +95,7 @@ HRESULT DirectX12::onDrawIndexedInstance(ID3D12GraphicsCommandList* a1, UINT a2,
 
 bool DirectX12::setup(IDXGISwapChain3* swapChain) {
 	if (SUCCEEDED(swapChain->GetDevice(IID_PPV_ARGS(&device)))) {
-		window = (HWND)FindWindowA(nullptr, (LPCSTR)"Minecraft");;
+		window = (HWND)FindWindowA(nullptr, (LPCSTR)"Minecraft");
 
 		DirectXHook::SetupImGui();
 

@@ -1,7 +1,5 @@
 #pragma once
-#include <Windows.h>
-#include "GuiData.h"
-
+#include "../Signatures.h" 
 class ClientInstance {
 public:
 	auto getLoopBackPacketSender() -> class LoopBackPacketSender* {
@@ -14,8 +12,8 @@ public:
 		return CallVFunc<Index::ClientInstance::getLocalPlayer, class LocalPlayer*>(this);
 	}
 
-	class BlockSource* getBlockSource() {
-		return CallVFunc<Index::ClientInstance::getRegion, BlockSource*>(this); //ClientInstance::getRegion();
+	auto getBlockSource() -> class BlockSource* {
+		return CallVFunc<Index::ClientInstance::getRegion, class BlockSource*>(this); //ClientInstance::getRegion();
 	}
 
 	auto grabCursor() -> void {

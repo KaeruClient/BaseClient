@@ -1,7 +1,7 @@
 #pragma once
 #include "Signatures.h" 
 
-#include "ClientInstance/ClientInstance.h" // ClientInstances
+#include "ClientInstance/ClientInstance.h" 
+#include "ClientInstance/GuiData.h" 
 
-//#include "Entity/Actor.h" // Entities
 

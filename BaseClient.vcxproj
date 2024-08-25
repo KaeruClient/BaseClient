@@ -27,13 +27,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BaseClient\Features\Config\ConfigHandler.cpp" />
     <ClCompile Include="src\BaseClient\Memories\HookHandler.cpp" />
     <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\ClientInstanceHook.cpp" />
     <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\DirectXHook.cpp" />
     <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\KeyboardHook.cpp" />
-    <ClCompile Include="src\BaseClient\Module\ModuleHandler.cpp" />
-    <ClCompile Include="src\BaseClient\Module\Modules\Misc\TestModule.cpp" />
-    <ClCompile Include="src\BaseClient\Module\Modules\Module.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Module\ModuleHandler.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Module\Modules\Misc\TestModule.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Module\Modules\Module.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\GameData.cpp" />
     <ClCompile Include="src\include\discord\cpp\achievement_manager.cpp" />
@@ -50,11 +51,6 @@
     <ClCompile Include="src\include\discord\cpp\types.cpp" />
     <ClCompile Include="src\include\discord\cpp\user_manager.cpp" />
     <ClCompile Include="src\include\discord\cpp\voice_manager.cpp" />
-    <ClCompile Include="src\include\DiscordSDK\src\connection_win.cpp" />
-    <ClCompile Include="src\include\DiscordSDK\src\discord_register_win.cpp" />
-    <ClCompile Include="src\include\DiscordSDK\src\discord_rpc.cpp" />
-    <ClCompile Include="src\include\DiscordSDK\src\rpc_connection.cpp" />
-    <ClCompile Include="src\include\DiscordSDK\src\serialization.cpp" />
     <ClCompile Include="src\include\ImFX\imfx.cpp" />
     <ClCompile Include="src\include\ImGui\imgui.cpp" />
     <ClCompile Include="src\include\ImGui\imgui_demo.cpp" />
@@ -81,17 +77,39 @@
     <ClCompile Include="src\include\minhook\hde\hde64.c" />
     <ClCompile Include="src\include\minhook\hook.c" />
     <ClCompile Include="src\include\minhook\trampoline.c" />
-    <ClCompile Include="src\Utils\FileUtils.cpp" />
+    <ClCompile Include="src\SDK\Entity\Actor.cpp" />
+    <ClCompile Include="src\SDK\Entity\LocalPlayer.cpp" />
+    <ClCompile Include="src\SDK\Entity\Mob.cpp" />
+    <ClCompile Include="src\SDK\Entity\Player.cpp" />
+    <ClCompile Include="src\Utils\ImGuiUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BaseClient\Features\Config\ConfigHandler.h" />
     <ClInclude Include="src\BaseClient\Memories\HookHandler.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hook.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hooks\ClientInstanceHook.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hooks\DirectXHook.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hooks\KeyboardHook.h" />
-    <ClInclude Include="src\BaseClient\Module\ModuleHandler.h" />
-    <ClInclude Include="src\BaseClient\Module\Modules\Misc\TestModule.h" />
-    <ClInclude Include="src\BaseClient\Module\Modules\Module.h" />
+    <ClInclude Include="src\BaseClient\Features\Module\ModuleHandler.h" />
+    <ClInclude Include="src\BaseClient\Features\Module\Modules\Misc\TestModule.h" />
+    <ClInclude Include="src\BaseClient\Features\Module\Modules\Module.h" />
+    <ClInclude Include="src\include\discord\cpp\achievement_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\activity_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\application_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\core.h" />
+    <ClInclude Include="src\include\discord\cpp\discord.h" />
+    <ClInclude Include="src\include\discord\cpp\event.h" />
+    <ClInclude Include="src\include\discord\cpp\ffi.h" />
+    <ClInclude Include="src\include\discord\cpp\image_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\lobby_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\network_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\overlay_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\relationship_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\storage_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\store_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\types.h" />
+    <ClInclude Include="src\include\discord\cpp\user_manager.h" />
+    <ClInclude Include="src\include\discord\cpp\voice_manager.h" />
     <ClInclude Include="src\include\entt\config\config.h" />
     <ClInclude Include="src\include\entt\config\macro.h" />
     <ClInclude Include="src\include\entt\config\version.h" />
@@ -179,6 +197,10 @@
     <ClInclude Include="src\include\ImGui\imstb_truetype.h" />
     <ClInclude Include="src\include\Json.hpp" />
     <ClInclude Include="src\include\Kiero\Kiero.h" />
+    <ClInclude Include="src\SDK\Entity\Actor.h" />
+    <ClInclude Include="src\SDK\Entity\LocalPlayer.h" />
+    <ClInclude Include="src\SDK\Entity\Mob.h" />
+    <ClInclude Include="src\SDK\Entity\Player.h" />
     <ClInclude Include="src\SDK\SDK.h" />
     <ClInclude Include="src\SDK\Signatures.h" />
     <ClInclude Include="src\dllmain.h" />
@@ -211,7 +233,9 @@
     <ClInclude Include="src\include\xorstr.hpp" />
     <ClInclude Include="src\SDK\ClientInstance\ClientInstance.h" />
     <ClInclude Include="src\SDK\ClientInstance\GuiData.h" />
-    <ClInclude Include="src\Utils\FileUtils.h" />
+    <ClInclude Include="src\Utils\ColorUtils.h" />
+    <ClInclude Include="src\Utils\ImGuiUtils.h" />
+    <ClInclude Include="src\Utils\JsonUtils.h" />
     <ClInclude Include="src\Utils\Logger.h" />
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Utils\MemUtils.h" />
@@ -222,14 +246,14 @@
     <None Include="src\include\discord\lib\aarch64\discord_game_sdk.bundle" />
     <None Include="src\include\discord\lib\aarch64\discord_game_sdk.dylib" />
     <None Include="src\include\discord\lib\x86\discord_game_sdk.dll" />
-    <None Include="src\include\discord\lib\x86_64\discord_game_sdk.bundle" />
-    <None Include="src\include\discord\lib\x86_64\discord_game_sdk.dll" />
-    <None Include="src\include\discord\lib\x86_64\discord_game_sdk.dylib" />
+    <None Include="src\include\discord\lib\x86\discord_game_sdk.bundle" />
+    <None Include="src\include\discord\lib\x86\discord_game_sdk.dll" />
+    <None Include="src\include\discord\lib\x86\discord_game_sdk.dylib" />
     <None Include="src\include\libhat\include\libhat\Scanner.inl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="src\include\discord\lib\x86\discord_game_sdk.dll.lib" />
-    <Library Include="src\include\discord\lib\x86_64\discord_game_sdk.dll.lib" />
+    <Library Include="src\include\discord\lib\x86\discord_game_sdk.dll.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -305,19 +329,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)src\$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</ExternalIncludePath>
+    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</ExternalIncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Beta|x64'">
-    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</ExternalIncludePath>
+    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)src\$(Platform)\$(Configuration)\</OutDir>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(ProjectDir)src\include\DiscordSDK\src;$(ProjectDir)src\include\DiscordSDK\include;$(IncludePath)</ExternalIncludePath>
+    <IncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(ProjectDir)src\include\glm;$(ProjectDir)src\include\libhat\include;$(IncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)src\$(Platform)\$(Configuration)\</OutDir>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "../../Utils/Math.h"
 class GuiData {
 private:
 	char pad_0x0000[0x30];  //0x0000

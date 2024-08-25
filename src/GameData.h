@@ -1,7 +1,6 @@
 #pragma once
 #include <Windows.h>
 #include <map>
-
 extern class GameData g_Data;
 class GameData { //マイクラのデータ
 private:
@@ -15,10 +14,10 @@ public:
 	void updateGameData(unsigned char key, bool isDown) {
 		this->keymap[key] = isDown;
 	}
-	static class ClientInstance* getClientInstance() { return g_Data.clientInstace; }
-	static class GameMode* getGameMode() { return g_Data.gameMode; }
-	static class LocalPlayer* getLocalPlayer() { return g_Data.localPlayer; }
-	static class GuiData* getGuiData() { return g_Data.guiData; }
+	static class ClientInstance* getClientInstance();
+	static class GameMode* getGameMode();
+	static class LocalPlayer* getLocalPlayer();
+	static class GuiData* getGuiData();
 	static bool isKeyDown(unsigned int key) {
 		return g_Data.keymap[key];
 	}
@@ -26,6 +25,7 @@ public:
 
 class ClientData { //クライアントのデータ
 public:
-	static const char* getClientName();
-	static const char* getClientVersion();
+	const char* getName();
+	const char* getVersion();
 };
+extern ClientData client;

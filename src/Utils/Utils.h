@@ -1,13 +1,17 @@
 #pragma once
+#include "JsonUtils.h"
 #include <string>
 #include <random>
 #include <WinUser.h>
 #include <WinBase.h>
 #include "MemUtils.h"
-#include "FileUtils.h"
 #include "Logger.h"
 #include "Math.h"
 #include <codecvt>
+#include <direct.h>
+#include "ImGuiUtils.h"
+#include "ColorUtils.h"
+#include "../GameData.h"
 
 static const char* const KeyNames[] = {
 	"Unknown",
@@ -319,6 +323,22 @@ public:
 		CloseClipboard();
 		GlobalFree(hg);
 	}
+	static inline std::string getRoamingStatePath()
+	{
+		char* value;
+		size_t size;
+		_dupenv_s(&value, &size, "AppData");
+
+		std::string roamingPathCStr = value + (std::string)"\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\";
+		free(value);
+		return roamingPathCStr;
+	}
+
+
+	static inline std::string getClientPath()
+	{
+		return getRoamingStatePath() + client.getName() + "\\";
+	}
 };
 
 #define u8str(name) reinterpret_cast<const char*>(std::u8string(name).data()), std::u8string(name).size())
@@ -339,3 +359,13 @@ static inline void outputDebugLog(const char* str, ...) {
 	va_end(arg);
 }
 #define logF(str, ...) outputDebugLog(xorstr_(str), __VA_ARGS__)
+
+static inline void makeFolder() {
+	std::string path = Utils::getRoamingStatePath() + client.getName();
+	_mkdir(path.c_str());
+}
+
+static inline void makeAssetsFolder(std::string name) {
+	std::string path = Utils::getClientPath() + name;
+	_mkdir(path.c_str());
+}
