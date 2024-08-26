@@ -249,12 +249,10 @@
     <None Include="src\include\discord\lib\aarch64\discord_game_sdk.dylib" />
     <None Include="src\include\discord\lib\x86\discord_game_sdk.dll" />
     <None Include="src\include\discord\lib\x86\discord_game_sdk.bundle" />
-    <None Include="src\include\discord\lib\x86\discord_game_sdk.dll" />
     <None Include="src\include\discord\lib\x86\discord_game_sdk.dylib" />
     <None Include="src\include\libhat\include\libhat\Scanner.inl" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="src\include\discord\lib\x86\discord_game_sdk.dll.lib" />
     <Library Include="src\include\discord\lib\x86\discord_game_sdk.dll.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
