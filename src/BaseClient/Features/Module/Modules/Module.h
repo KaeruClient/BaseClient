@@ -8,6 +8,8 @@
 #include "../../../../SDK/SDK.h"
 #include <functional>
 
+#pragma warning(disable: 4624)
+
 enum class Category {
 	Combat = 0,
 	Render = 1,
@@ -18,12 +20,11 @@ enum class Category {
 };
 
 enum class SettingType {
-	bool_t,
-	int_t,
-	float_t,
-	text_t,
-	keybind_t,
-	settinggroup_t
+	BOOL,
+	INT,
+	FLOAT,
+	TEXT,
+	KEYBIND
 };
 
 struct Keybind {//shit code
@@ -36,19 +37,22 @@ struct Keybind {//shit code
 };
 
 struct SettingValue {
-	bool _bool;
-	int _int;
-	float _float;
-	std::string _text;
-	Keybind _keybind;
+	union {
+		bool _bool;
+		int _int;
+		float _float;
+		std::string _text;
+		Keybind _keybind;
+	};
+	SettingValue() {};
 };
 
 
 struct Setting {
 	SettingType type;
-	SettingValue* value;
-	SettingValue max;
-	SettingValue min;
+	SettingValue* value = nullptr;
+	SettingValue* max = nullptr;
+	SettingValue* min = nullptr;
 	std::string name;
 	std::string tooltip;
 };
@@ -63,7 +67,12 @@ private:
 	Category category;
 public:
 	Module(std::string moduleName, Category cat, Keybind keybind, const char* tooltip);
-	virtual ~Module() {
+	~Module() {
+		for (auto it = this->settings.begin(); it != this->settings.end(); it++) {
+			delete& (*it)->max;
+			delete& (*it)->min;
+			delete* it;
+		}
 		settings.clear();
 	};
 	const Category getCategory() { return category; };
@@ -86,34 +95,32 @@ public:
 				"This type cannot be used!"
 				);
 		Setting* setting = new Setting();
-		SettingValue* value = new SettingValue();
+		SettingValue* maxVal = new SettingValue();
+		SettingValue* minVal = new SettingValue();
 		if constexpr (std::is_same<T, bool>::value) {
-			setting->type = SettingType::bool_t;
-			value->_bool = *ptr;
+			setting->type = SettingType::BOOL;
 		}
 		else if constexpr (std::is_same<T, int>::value) {
-			setting->type = SettingType::int_t;
-			value->_int = (int)*ptr;
-			setting->min._int = (int)min;
-			setting->max._int = (int)max;
+			setting->type = SettingType::INT;
+			minVal->_int = (int)min;
+			maxVal->_int = (int)max;
 		}
 		else if constexpr (std::is_same<T, float>::value) {
-			setting->type = SettingType::float_t;
-			value->_float = *ptr;
-			setting->min._float = min;
-			setting->max._float = max;
+			setting->type = SettingType::FLOAT;
+			minVal->_float = min;
+			maxVal->_float = max;
 		}
 		else if constexpr (std::is_same<T, std::string>::value || std::is_same<T, const char*>::value) {
-			setting->type = SettingType::text_t;
-			value->_text = *ptr;
+			setting->type = SettingType::TEXT;
 		}
 		else if constexpr (std::is_same<T, Keybind>::value) {
-			setting->type = SettingType::keybind_t;
-			value->_keybind = *ptr;
-			setting->min._int = 0x0;
-			setting->max._int = 0xBE;
+			setting->type = SettingType::KEYBIND;
+			minVal->_int = 0x0;
+			maxVal->_int = 0xBE;
 		}
-		setting->value = value;
+		setting->value = reinterpret_cast<SettingValue*>(ptr);
+		setting->max = maxVal;
+		setting->min = minVal;
 		setting->name = name;
 		setting->tooltip = tooltip;
 		settings.push_back(setting);
@@ -137,64 +144,76 @@ public:
 	Keybind* KeybindData() { return &keybind; }
 	bool isEnabled() { return enabled; }
 	void SaveConfig(nlohmann::json* json) {
+		logF("Saving %s's config...", this->getName());
 		nlohmann::json object;
 		for (auto& setting : settings) {
 			switch (setting->type)
 			{
-			case SettingType::bool_t:
+			case SettingType::BOOL:
 				JsonUtils::writeJson(&object, setting->name.c_str(), setting->value->_bool);
+				logF("Saved boolean");
+				logF("name:%s, value:%i", setting->name.c_str(), setting->value->_bool);
 				break;
-			case SettingType::int_t:
+			case SettingType::INT:
 				JsonUtils::writeJson(&object, setting->name.c_str(), setting->value->_int);
+				logF("Saved intger");
+				logF("name:%s, value:%i", setting->name.c_str(), setting->value->_int);
 				break;
-			case SettingType::float_t:
+			case SettingType::FLOAT:
 				JsonUtils::writeJson(&object, setting->name.c_str(), setting->value->_float);
+				logF("name:%s, value:%.5f", setting->name.c_str(), setting->value->_float);
+				logF("Saved float");
 				break;
-			case SettingType::text_t:
+			case SettingType::TEXT:
 				JsonUtils::writeJson(&object, setting->name.c_str(), setting->value->_text);
+				logF("Saved text");
+				logF("name:%s, value:%s", setting->name.c_str(), setting->value->_text.c_str());
 				break;
-			case SettingType::keybind_t:
+			case SettingType::KEYBIND:
 				JsonUtils::writeJson(&object, setting->name.c_str(), setting->value->_keybind.keybind);
+				logF("Saved keybind");
+				logF("name:%s, value:%i", setting->name.c_str(), setting->value->_keybind.keybind);
 				break;
 			default:
 				break;
 			}
 		}
-		json->emplace(this->getName(), object);
+		JsonUtils::writeJson(json, this->getName(), object);
 	}
 	void LoadConfig(nlohmann::json* json) {
 		if (json->contains(this->getName())) {
-			nlohmann::json object = json->at(this->getName());
+			auto object = json->at(this->getName());
 			if (object.is_null()) {
 				logF("Config load error reason 1");
 				return;
 			}
 			logF("Loading %s's config...", this->getName());
 
-			for (auto& setting : settings) {
+			for (auto it = this->settings.begin(); it != this->settings.end(); ++it) {
+				Setting* setting = *it;
 				switch (setting->type)
 				{
-				case SettingType::bool_t:
+				case SettingType::BOOL:
 					setting->value->_bool = JsonUtils::readJson<bool>(object, setting->name.c_str());
 					logF("Loaded boolean");
 					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_bool);
 					break;
-				case SettingType::int_t:
+				case SettingType::INT:
 					setting->value->_int = JsonUtils::readJson<int>(object, setting->name.c_str());
 					logF("Loaded intger");
 					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_int);
 					break;
-				case SettingType::float_t:
+				case SettingType::FLOAT:
 					setting->value->_float = JsonUtils::readJson<float>(object, setting->name.c_str());
-					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_float);
+					logF("name:%s, value:%.5f", setting->name.c_str(), setting->value->_float);
 					logF("Loaded float");
 					break;
-				case SettingType::text_t:
+				case SettingType::TEXT:
 					setting->value->_text = JsonUtils::readJson<std::string>(object, setting->name.c_str());
 					logF("Loaded text");
 					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_text);
 					break;
-				case SettingType::keybind_t:
+				case SettingType::KEYBIND:
 					setting->value->_keybind.keybind = JsonUtils::readJson<int>(object, setting->name.c_str());
 					logF("Loaded keybind");
 					logF("name:%s, value:%d", setting->name.c_str(), setting->value->_keybind.keybind);

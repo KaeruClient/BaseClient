@@ -21,23 +21,6 @@ auto GetDllMod(void) -> HMODULE {
     assert(len == sizeof(info));
     return len ? (HMODULE)info.AllocationBase : NULL;
 }
-
-DWORD WINAPI EjectThread(LPVOID a) {
-    while (dllmain::isRunning) Sleep(100);
-    DirectXHook::shutdown();
-    HookHandler::Restore();
-    ModuleHandler::Restore();
-    ConfigHandler::Save(ConfigHandler::fileName);
-    auto disp = winrt::Windows::ApplicationModel::Core::CoreApplication::MainView().CoreWindow().Dispatcher();
-    disp.RunAsync(winrt::Windows::UI::Core::CoreDispatcherPriority::Normal, []() {winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().Title(L"");});
-
-    Sleep(1000);
-    logF("Ejected!");
-
-    FreeLibraryAndExitThread(GetDllMod(), 1);
-    return 1;
-}
-
 DWORD WINAPI InitializeClient(LPVOID lpParam) {
     makeFolder();
     makeAssetsFolder("Configs");
@@ -48,31 +31,31 @@ DWORD WINAPI InitializeClient(LPVOID lpParam) {
     ModuleHandler::Initialize();
     HookHandler::Initialize();
     ConfigHandler::Initialize();
-    auto disp = winrt::Windows::ApplicationModel::Core::CoreApplication::MainView().CoreWindow().Dispatcher();
-    disp.RunAsync(winrt::Windows::UI::Core::CoreDispatcherPriority::Normal, []() {
+    winrt::Windows::ApplicationModel::Core::CoreApplication::MainView().CoreWindow().Dispatcher().RunAsync(winrt::Windows::UI::Core::CoreDispatcherPriority::Normal, []() {
         winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().Title(
             Utils::stringToWstring(
                 client.getName() + (std::string)" " + client.getVersion()
             )
         );
      });
-    CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)EjectThread, NULL, NULL, NULL); 
-    /*discord::Core* coreInstance;
-    if (discord::Core::Create(1275439673631576086, (uint64_t)discord::CreateFlags::Default, &coreInstance) == discord::Result::Ok) {
-        core.reset(coreInstance);
-        discord::Activity activity;
-        activity.SetState("Test");
-        activity.SetDetails("Unknown");
-        core->ActivityManager().UpdateActivity(activity, [](discord::Result result) {});
-    }*/
     while (dllmain::isRunning) {
         if ((GameData::isKeyDown('L') && GameData::isKeyDown(VK_CONTROL)) || GameData::isKeyDown(VK_END)) {
             dllmain::isRunning = false;
             logF("Ejecting...");
         }
-        //if (core) core->RunCallbacks();
         Sleep(100);
     }
+
+    ConfigHandler::Save();
+    DirectXHook::shutdown();
+    HookHandler::Restore();
+    ModuleHandler::Restore();
+    winrt::Windows::ApplicationModel::Core::CoreApplication::MainView().CoreWindow().Dispatcher().RunAsync(winrt::Windows::UI::Core::CoreDispatcherPriority::Normal, []() {winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().Title(L""); });
+
+    Sleep(1000);
+    logF("Ejected!");
+
+    FreeLibraryAndExitThread(GetDllMod(), 1);
     return 1;
 }
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved) {
