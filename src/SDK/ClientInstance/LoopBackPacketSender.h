@@ -4,9 +4,8 @@
 class Packet;
 class LoopbackPacketSender
 {
-private:
-	virtual void destructor();
 public:
-	virtual void send(Packet*);
-	virtual void sendToServer(Packet*);
+	void sendToServer(Packet* packet) { 
+		return CallVFunc<Index::LoopBackPacketSender::sendToServer, void, Packet*>(this, packet);
+	};
 };

@@ -6,6 +6,7 @@ void ClientInstanceHook::Update::handle(ClientInstance* _this, bool a2) {
 	static bool yeah = false;
 	if (!yeah) {
 		logF("ClientInstance : %llX", _this);
+		logF("LoopBackPacketSender : %llX", *(uintptr_t*)_this->getLoopBackPacketSender());
 		yeah = true;
 	}
 	g_Data.updateGameData(_this);

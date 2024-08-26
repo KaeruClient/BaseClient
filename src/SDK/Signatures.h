@@ -12,6 +12,7 @@ namespace Signature {
 		namespace Packets {
 			static uintptr_t** textPacket = ScanVTable("48 8D 05 ?? ?? ?? ?? 48 8B F9 48 89 01 48 8B 99 ?? ?? ?? ?? 48 8B A9", 3);
 		}
+		static uintptr_t** LoopBackPacketSender = ScanVTable("48 8d 05 ? ? ? ? 48 8b 5c 24 ? 48 89 06 33 c0 48 89 7e ? c6 46 ? ? 48 89 46 ? 48 89 46 ? 48 89 46 ? 48 89 46 ? 48 89 46 ? 48 89 46 ? 48 89 46 ? 48 8b c6 48 8b 74 24 ? 48 83 c4 ? 5f c3 48 89 5c 24", 3);
 	}
 }
 namespace Offset {
@@ -27,9 +28,12 @@ namespace Offset {
 }
 namespace Index {
 	namespace ClientInstance {
-		static constexpr unsigned int getRegion = 28;
-		static constexpr unsigned int getLocalPlayer = 29;
-		static constexpr unsigned int grabMouse = 332;
-		static constexpr unsigned int releaseMouse = 333;
+		static constexpr int getRegion = 28;
+		static constexpr int getLocalPlayer = 29;
+		static constexpr int grabMouse = 332;
+		static constexpr int releaseMouse = 333;
+	}
+	namespace LoopBackPacketSender {
+		static constexpr int sendToServer = 2;
 	}
 }

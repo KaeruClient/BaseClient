@@ -41,6 +41,7 @@
     <ClCompile Include="src\BaseClient\Features\Module\ModuleHandler.cpp" />
     <ClCompile Include="src\BaseClient\Features\Module\Modules\Misc\TestModule.cpp" />
     <ClCompile Include="src\BaseClient\Features\Module\Modules\Module.cpp" />
+    <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\LoopBackPacketSenderHook.cpp" />
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\GameData.cpp" />
     <ClCompile Include="src\include\discord\cpp\achievement_manager.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="src\BaseClient\Features\Module\ModuleHandler.h" />
     <ClInclude Include="src\BaseClient\Features\Module\Modules\Misc\TestModule.h" />
     <ClInclude Include="src\BaseClient\Features\Module\Modules\Module.h" />
+    <ClInclude Include="src\BaseClient\Memories\Hook\Hooks\LoopBackPacketSenderHook.h" />
     <ClInclude Include="src\include\discord\cpp\achievement_manager.h" />
     <ClInclude Include="src\include\discord\cpp\activity_manager.h" />
     <ClInclude Include="src\include\discord\cpp\application_manager.h" />

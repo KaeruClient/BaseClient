@@ -7,3 +7,5 @@
 
 //Packets
 #include "Packet/Packet.h"
+
+#include "Packet/Packets/TextPacket.h"

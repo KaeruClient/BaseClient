@@ -4,6 +4,7 @@ void HookHandler::Initialize() {
 	{
 		hookList.push_back(new ClientInstanceHook::Update());
 		hookList.push_back(new KeyboardHook::Feed());
+		hookList.push_back(new LoopBackPacketSenderHook::SendToServer());
 	}
 
 	for (std::size_t i = 0; i < hookList.size(); ++i) {
