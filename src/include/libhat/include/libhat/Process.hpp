@@ -3,6 +3,7 @@
 #include <optional>
 #include <span>
 #include <string_view>
+#include <string>
 
 namespace hat::process {
 
