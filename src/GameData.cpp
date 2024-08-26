@@ -3,6 +3,7 @@
 #include <string>
 
 #include "SDK/SDK.h"
+#include "Utils/Utils.h"
 
 GameData g_Data = GameData();
 ClientData client = ClientData();
@@ -16,6 +17,16 @@ const char* ClientData::getName() {
 const char* ClientData::getVersion() {
 	return version.c_str();
 }
+const char* ClientData::getChatLogo() {
+	std::string logo = 
+		GRAY + 
+		std::string("<") + 
+		AMETHYST + getName() + 
+		GRAY + 
+		std::string(">");
+	return logo.c_str();
+}
+
 
 void GameData::updateGameData(class ClientInstance* ci) {
 	this->clientInstace = ci;

@@ -127,5 +127,5 @@ static inline TRet getFastCall(uintptr_t address, TArgs... args) {
     static func_t oFunc = reinterpret_cast<func_t>(address);
     return oFunc(args);
 }
-#define VtableScan(signature, offset) MemUtils::getVtable(xorstr_(signature), offset)
+#define ScanVTable(signature, offset) MemUtils::getVtable(xorstr_(signature), offset)
 #define SigScan(signature) MemUtils::SigScan(xorstr_(signature))

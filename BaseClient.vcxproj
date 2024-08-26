@@ -27,8 +27,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BaseClient\Features\Command\CommandHandler.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Command\Commands\BindCommand.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Command\Commands\Command.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Command\Commands\ConfigCommand.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Command\Commands\UninjectCommand.cpp" />
     <ClCompile Include="src\BaseClient\Features\Config\ConfigHandler.cpp" />
-    <ClCompile Include="src\BaseClient\Features\Module\Modules\Render\ArrayList.cpp" />
+    <ClCompile Include="src\BaseClient\Features\Module\Modules\Client\ArrayList.cpp" />
     <ClCompile Include="src\BaseClient\Memories\HookHandler.cpp" />
     <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\ClientInstanceHook.cpp" />
     <ClCompile Include="src\BaseClient\Memories\Hook\Hooks\DirectXHook.cpp" />
@@ -82,11 +87,18 @@
     <ClCompile Include="src\SDK\Entity\LocalPlayer.cpp" />
     <ClCompile Include="src\SDK\Entity\Mob.cpp" />
     <ClCompile Include="src\SDK\Entity\Player.cpp" />
+    <ClCompile Include="src\SDK\Packet\Packet.cpp" />
     <ClCompile Include="src\Utils\ImGuiUtils.cpp" />
+    <ClCompile Include="src\Utils\TextColor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BaseClient\Features\Command\CommandHandler.h" />
+    <ClInclude Include="src\BaseClient\Features\Command\Commands\BindCommand.h" />
+    <ClInclude Include="src\BaseClient\Features\Command\Commands\Command.h" />
+    <ClInclude Include="src\BaseClient\Features\Command\Commands\ConfigCommand.h" />
+    <ClInclude Include="src\BaseClient\Features\Command\Commands\UninjectCommand.h" />
     <ClInclude Include="src\BaseClient\Features\Config\ConfigHandler.h" />
-    <ClInclude Include="src\BaseClient\Features\Module\Modules\Render\ArrayList.h" />
+    <ClInclude Include="src\BaseClient\Features\Module\Modules\Client\ArrayList.h" />
     <ClInclude Include="src\BaseClient\Memories\HookHandler.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hook.h" />
     <ClInclude Include="src\BaseClient\Memories\Hook\Hooks\ClientInstanceHook.h" />
@@ -199,10 +211,13 @@
     <ClInclude Include="src\include\ImGui\imstb_truetype.h" />
     <ClInclude Include="src\include\Json.hpp" />
     <ClInclude Include="src\include\Kiero\Kiero.h" />
+    <ClInclude Include="src\SDK\ClientInstance\LoopBackPacketSender.h" />
     <ClInclude Include="src\SDK\Entity\Actor.h" />
     <ClInclude Include="src\SDK\Entity\LocalPlayer.h" />
     <ClInclude Include="src\SDK\Entity\Mob.h" />
     <ClInclude Include="src\SDK\Entity\Player.h" />
+    <ClInclude Include="src\SDK\Packet\Packet.h" />
+    <ClInclude Include="src\SDK\Packet\Packets\TextPacket.h" />
     <ClInclude Include="src\SDK\SDK.h" />
     <ClInclude Include="src\SDK\Signatures.h" />
     <ClInclude Include="src\dllmain.h" />
@@ -242,6 +257,7 @@
     <ClInclude Include="src\Utils\Math.h" />
     <ClInclude Include="src\Utils\MemUtils.h" />
     <ClInclude Include="src\Utils\NetworkUtils.h" />
+    <ClInclude Include="src\Utils\TextColor.h" />
     <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>

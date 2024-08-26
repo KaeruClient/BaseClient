@@ -12,7 +12,7 @@
 #include "ImGuiUtils.h"
 #include "ColorUtils.h"
 #include "../GameData.h"
-
+#include "TextColor.h"
 static const char* const KeyNames[] = {
 	"Unknown",
 	"VK_LBUTTON",

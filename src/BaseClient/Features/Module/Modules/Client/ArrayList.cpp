@@ -1,6 +1,6 @@
 #include "ArrayList.h"
 
-ArrayList::ArrayList() : Module("ArrayList", Category::Render, 0x0, "temp arraylist.") {
+ArrayList::ArrayList() : Module("ArrayList", Category::Client, 0x0, "temp arraylist.") {
 }
 
 void ArrayList::onPresentEvent(ImDrawList* d) {

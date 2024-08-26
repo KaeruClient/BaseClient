@@ -8,11 +8,21 @@ namespace Signature {
 	namespace ClientInstance {
 		static const uintptr_t update = SigScan("48 89 5C 24 10 48 89 74 24 18 55 57 41 54 41 56 41 57 48 8D AC 24 F0 FA"); //stringåüçı textures/ui/pointer
 	}
+	namespace VTable {
+		namespace Packets {
+			static uintptr_t** textPacket = ScanVTable("48 8D 05 ?? ?? ?? ?? 48 8B F9 48 89 01 48 8B 99 ?? ?? ?? ?? 48 8B A9", 3);
+		}
+	}
 }
 namespace Offset {
 	namespace ClientInstance {
 		static constexpr unsigned int guidata = 0x558; //windowsize 
 		static constexpr unsigned int loopbackpacketsender = 0xF0; //ClientInstance::ClientInstance
+	}
+	namespace Packets {
+		namespace TextPacket {
+			static constexpr unsigned int message = 0x58; //TextPacket::TextPacket
+		}
 	}
 }
 namespace Index {

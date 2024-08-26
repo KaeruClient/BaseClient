@@ -6,12 +6,15 @@
 #include "BaseClient/Memories/HookHandler.h"
 #include "BaseClient/Features/Module/ModuleHandler.h"
 #include "BaseClient/Features/Config/ConfigHandler.h"
+#include "BaseClient/Features/Command/CommandHandler.h"
 
 #include <winrt/Windows.UI.Notifications.h>
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.UI.Core.h>
+
+#include "Utils/TextColor.h"
 
 bool dllmain::isRunning = true;
 std::unique_ptr<discord::Core> core = {};
@@ -27,8 +30,10 @@ DWORD WINAPI InitializeClient(LPVOID lpParam) {
     makeAssetsFolder("Assets");
     makeAssetsFolder("Logs");
     MH_Initialize();
+    initColors();
     logF("Injected!");
     ModuleHandler::Initialize();
+    CommandHandler::Initialize();
     HookHandler::Initialize();
     ConfigHandler::Initialize();
     winrt::Windows::ApplicationModel::Core::CoreApplication::MainView().CoreWindow().Dispatcher().RunAsync(winrt::Windows::UI::Core::CoreDispatcherPriority::Normal, []() {
@@ -49,6 +54,7 @@ DWORD WINAPI InitializeClient(LPVOID lpParam) {
     ConfigHandler::Save();
     DirectXHook::shutdown();
     HookHandler::Restore();
+    CommandHandler::Restore();
     ModuleHandler::Restore();
     winrt::Windows::ApplicationModel::Core::CoreApplication::MainView().CoreWindow().Dispatcher().RunAsync(winrt::Windows::UI::Core::CoreDispatcherPriority::Normal, []() {winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().Title(L""); });
 

@@ -27,5 +27,6 @@ class ClientData { //クライアントのデータ
 public:
 	const char* getName();
 	const char* getVersion();
+	const char* getChatLogo();
 };
 extern ClientData client;
