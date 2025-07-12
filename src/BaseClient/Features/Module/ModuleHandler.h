@@ -73,7 +73,8 @@ public:
 
 	void flushPresentEvent(ImDrawList* d) {
 		for (Module* mod : moduleList) {
-			mod->onPresentEvent(d);
+			if (mod->isEnabled()) 
+				mod->onPresentEvent(d);
 		}
 	};
 
