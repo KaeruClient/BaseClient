@@ -5,6 +5,6 @@ Module::Module(std::string moduleName, Category category, Keybind keybind, const
 	this->category = category;
 	this->keybind = keybind;
 	this->tooltip = tooltip;
-	registerSetting<bool>("enabled", "", &enabled);
-	registerSetting<Keybind>("Keybind", "Set a key to toggle the module.", &keybind);
+	registerSetting<bool>("enabled", "", &this->enabled);
+	registerSetting<Keybind>("Keybind", "Set a key to toggle the module.", &this->keybind);
 }
